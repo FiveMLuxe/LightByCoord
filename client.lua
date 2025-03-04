@@ -1,10 +1,14 @@
-local excludedProps = {
-    {
-        hash = GetHashKey("prop_generator_03b"),
-        coords = vector3(-456.43765258789, 5905.3330078125, 37.324668884277),
-    },
-   
-}
+local excludedProps = {}
+
+-- Convert each configured prop into the format you need (e.g., calculating the hash)
+for i = 1, #Config.ExcludedProps do
+    local propData = Config.ExcludedProps[i]
+    table.insert(excludedProps, {
+        hash = GetHashKey(propData.model),
+        coords = propData.coords,
+    })
+end
+
 function ApplyBlackoutExceptForProps()
     Citizen.CreateThread(function()
         while true do
@@ -30,4 +34,5 @@ function ApplyBlackoutExceptForProps()
         end
     end)
 end
+
 ApplyBlackoutExceptForProps()
